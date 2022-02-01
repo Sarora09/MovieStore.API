@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/MovieStore.API/.vs/MovieStore.API/v16
+/MovieStore.API/MovieStore.API/obj
