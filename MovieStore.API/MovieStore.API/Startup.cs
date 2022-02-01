@@ -31,7 +31,8 @@ namespace MovieStore.API
             services.AddDbContext<MovieStoreContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("MovieStoreDB"))); // Using configuration interface to read the connection string from appsettings file
             services.AddControllers();
-            services.AddTransient<IMovieRepository, MovieRepository>(); // Dependency Injection
+            services.AddTransient<IMovieRepository, MovieRepository>(); // Dependency injection
+            services.AddAutoMapper(typeof(Startup)); // To use the AutoMapper in this application for mapping values between entity class and model class with same property names
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
