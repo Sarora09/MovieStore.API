@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MovieStore.API.Models;
 using MovieStore.API.Repository;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,30 @@ namespace MovieStore.API.Controllers
 
             return Ok(movies);
 
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMovieById([FromRoute] int id)
+        {
+            var movie = await _movieRepository.GetMovieByIdAsync(id);
+
+            if(movie == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(movie);
+
+        }
+
+        [HttpPost("")]
+        public async Task<IActionResult> AddNewMovie([FromBody] MovieModel movieModel)
+        {
+            int newMovidId = await _movieRepository.AddNewMovieAsync(movieModel);
+
+            movieModel.Id = newMovidId;
+
+            return CreatedAtAction(nameof(GetMovieById), new { id = newMovidId }, movieModel);
         }
     }
 }

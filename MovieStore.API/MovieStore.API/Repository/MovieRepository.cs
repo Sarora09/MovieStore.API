@@ -33,5 +33,30 @@ namespace MovieStore.API.Repository
             return _mapper.Map<List<MovieModel>>(retrievedRecords);
         }
 
+        // Retrieves all the movies from the database and send it to the conntroller class requesting them
+        public async Task<MovieModel> GetMovieByIdAsync(int movieID)
+        {
+            // Retrieving the list of all movies from the database
+            var retrievedRecord = await _context.Movies.FindAsync(movieID);
+            // Using auto mapper to convert the list of Movies type to list of MovieModel type
+            return _mapper.Map<MovieModel>(retrievedRecord);
+        }
+
+        // Adds a new movie to the database and returns the new movie record id number to the controller
+        public async Task<int> AddNewMovieAsync(MovieModel movieModel)
+        {
+            var movie = new Movies()
+            {
+                Name = movieModel.Name,
+                Rating = movieModel.Rating,
+                Genre = movieModel.Genre,
+                RentPrice = movieModel.RentPrice
+            };
+
+            _context.Movies.Add(movie);
+            await _context.SaveChangesAsync();
+
+            return movie.Id;
+        }
     }
 }

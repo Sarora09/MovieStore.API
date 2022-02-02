@@ -10,5 +10,9 @@ namespace MovieStore.API.Repository
     public interface IMovieRepository
     {
         Task<List<MovieModel>> GetAllMoviesAsync();
+
+        Task<int> AddNewMovieAsync(MovieModel movieModel);
+
+        Task<MovieModel> GetMovieByIdAsync(int movieID);
     }
 }
