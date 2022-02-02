@@ -58,5 +58,33 @@ namespace MovieStore.API.Repository
 
             return movie.Id;
         }
+
+        // Updates a movie record in the database if the id exists. Otherwise, it returns 0
+        // Used the try-catch block to notify the requesting client in case a record with provided id doesn't exist in the database
+        public async Task<int> UpdateMovieAsync(int id, MovieModel movieModel)
+        {
+            try
+            {
+                var movie = new Movies()
+                {
+                    Id = id,
+                    Name = movieModel.Name,
+                    Rating = movieModel.Rating,
+                    Genre = movieModel.Genre,
+                    RentPrice = movieModel.RentPrice
+                };
+
+                _context.Movies.Update(movie);
+                // Hitting the database only one time for performance
+                await _context.SaveChangesAsync();
+
+                return movie.Id;
+            }
+            catch
+            {
+                return 0;
+            }
+            
+        }
     }
 }

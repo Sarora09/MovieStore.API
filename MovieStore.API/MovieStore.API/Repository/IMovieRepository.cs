@@ -14,5 +14,7 @@ namespace MovieStore.API.Repository
         Task<int> AddNewMovieAsync(MovieModel movieModel);
 
         Task<MovieModel> GetMovieByIdAsync(int movieID);
+
+        Task<int> UpdateMovieAsync(int id, MovieModel movieModel);
     }
 }

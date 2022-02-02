@@ -52,5 +52,22 @@ namespace MovieStore.API.Controllers
 
             return CreatedAtAction(nameof(GetMovieById), new { id = newMovidId }, movieModel);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateNewMovie([FromRoute] int id, [FromBody] MovieModel movieModel)
+        {
+            int newMovidId = await _movieRepository.UpdateMovieAsync(id, movieModel);
+
+            // Will work if a record for the provided id in the route doesn't exist in the database
+            if (newMovidId == 0)
+            {
+                return NotFound();
+            }
+            
+            // If the provided id in the route exists in the database, return the updated record to the client
+            movieModel.Id = newMovidId;
+
+            return Ok(movieModel);
+        }
     }
 }
