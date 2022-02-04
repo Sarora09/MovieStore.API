@@ -1,4 +1,5 @@
-﻿using MovieStore.API.Models;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using MovieStore.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,9 @@ namespace MovieStore.API.Repository
         Task<MovieModel> GetMovieByIdAsync(int movieID);
 
         Task<int> UpdateMovieAsync(int id, MovieModel movieModel);
+
+        Task<int> UpdateMoviePatchAsync(int id, JsonPatchDocument movieModel);
+
+        Task<int> DeleteMovieAsync(int id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using MovieStore.API.Data;
 using MovieStore.API.Models;
@@ -85,6 +86,49 @@ namespace MovieStore.API.Repository
                 return 0;
             }
             
+        }
+
+        // Updates a movie record in the database if the id exists. Otherwise, it returns 0
+        // Used the try-catch block to notify the requesting client in case a record with provided id doesn't exist in the database
+        public async Task<int> UpdateMoviePatchAsync(int id, JsonPatchDocument movieModel)
+        {
+            try
+            {
+                var movieRecord = await _context.Movies.FindAsync(id);
+
+                //if(movieRecord == null)
+                //{
+                //    throw new Exception();
+                //}
+
+                movieModel.ApplyTo(movieRecord);
+                await _context.SaveChangesAsync();
+
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+
+        }
+
+        // Deletes a movie record in the database if the id exists. Otherwise, it returns 0
+        // Used the try-catch block to notify the requesting client in case a record with provided id doesn't exist in the database
+        public async Task<int> DeleteMovieAsync(int id)
+        {
+            try
+            {
+                var movieRecord = await _context.Movies.FindAsync(id);
+                _context.Movies.Remove(movieRecord);
+                await _context.SaveChangesAsync();
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
+
         }
     }
 }

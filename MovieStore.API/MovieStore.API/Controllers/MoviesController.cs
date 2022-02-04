@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using MovieStore.API.Models;
 using MovieStore.API.Repository;
@@ -54,7 +55,7 @@ namespace MovieStore.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateNewMovie([FromRoute] int id, [FromBody] MovieModel movieModel)
+        public async Task<IActionResult> UpdateMovie([FromRoute] int id, [FromBody] MovieModel movieModel)
         {
             int newMovidId = await _movieRepository.UpdateMovieAsync(id, movieModel);
 
@@ -68,6 +69,36 @@ namespace MovieStore.API.Controllers
             movieModel.Id = newMovidId;
 
             return Ok(movieModel);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateMoviePatch([FromRoute] int id, [FromBody] JsonPatchDocument movieModel)
+        {
+            int newMovidId = await _movieRepository.UpdateMoviePatchAsync(id, movieModel);
+
+            // Will work if a record for the provided id in the route doesn't exist in the database
+            if (newMovidId == 0)
+            {
+                return NotFound();
+            }
+
+            // If the provided id in the route exists in the database, return OK to the client
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMovie([FromRoute] int id)
+        {
+            int newMovidId = await _movieRepository.DeleteMovieAsync(id);
+
+            // Will work if a record for the provided id in the route doesn't exist in the database
+            if (newMovidId == 0)
+            {
+                return NotFound();
+            }
+
+            // If the provided id in the route exists in the database, return OK to the client
+            return Ok();
         }
     }
 }
