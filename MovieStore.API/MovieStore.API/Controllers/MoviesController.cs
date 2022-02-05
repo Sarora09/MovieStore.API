@@ -47,26 +47,26 @@ namespace MovieStore.API.Controllers
         [HttpPost("")]
         public async Task<IActionResult> AddNewMovie([FromBody] MovieModel movieModel)
         {
-            int newMovidId = await _movieRepository.AddNewMovieAsync(movieModel);
+            int newMovieId = await _movieRepository.AddNewMovieAsync(movieModel);
 
-            movieModel.Id = newMovidId;
+            movieModel.Id = newMovieId;
 
-            return CreatedAtAction(nameof(GetMovieById), new { id = newMovidId }, movieModel);
+            return CreatedAtAction(nameof(GetMovieById), new { id = newMovieId }, movieModel);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMovie([FromRoute] int id, [FromBody] MovieModel movieModel)
         {
-            int newMovidId = await _movieRepository.UpdateMovieAsync(id, movieModel);
+            int newMovieId = await _movieRepository.UpdateMovieAsync(id, movieModel);
 
             // Will work if a record for the provided id in the route doesn't exist in the database
-            if (newMovidId == 0)
+            if (newMovieId == 0)
             {
                 return NotFound();
             }
             
             // If the provided id in the route exists in the database, return the updated record to the client
-            movieModel.Id = newMovidId;
+            movieModel.Id = newMovieId;
 
             return Ok(movieModel);
         }
@@ -74,10 +74,10 @@ namespace MovieStore.API.Controllers
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateMoviePatch([FromRoute] int id, [FromBody] JsonPatchDocument movieModel)
         {
-            int newMovidId = await _movieRepository.UpdateMoviePatchAsync(id, movieModel);
+            int newMovieId = await _movieRepository.UpdateMoviePatchAsync(id, movieModel);
 
             // Will work if a record for the provided id in the route doesn't exist in the database
-            if (newMovidId == 0)
+            if (newMovieId == 0)
             {
                 return NotFound();
             }
@@ -89,10 +89,10 @@ namespace MovieStore.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie([FromRoute] int id)
         {
-            int newMovidId = await _movieRepository.DeleteMovieAsync(id);
+            int newMovieId = await _movieRepository.DeleteMovieAsync(id);
 
             // Will work if a record for the provided id in the route doesn't exist in the database
-            if (newMovidId == 0)
+            if (newMovieId == 0)
             {
                 return NotFound();
             }
