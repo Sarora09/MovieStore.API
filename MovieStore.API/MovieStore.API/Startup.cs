@@ -32,7 +32,7 @@ namespace MovieStore.API
                 options => options.UseSqlServer(Configuration.GetConnectionString("MovieStoreDB"))); // Using configuration interface to read the connection string from appsettings file
             services.AddControllers().AddNewtonsoftJson(); // Added NewtonsoftJson to use JsonPatchDocument in this application
             services.AddTransient<IMovieRepository, MovieRepository>(); // Dependency injection for Movies
-            services.AddTransient<ICustomerRepository, CustomerRepository>(); // Dependency injection for Customers
+            services.AddTransient<ICustomerRepositary, CustomerRepository>(); // Dependency injection for Customers
             services.AddAutoMapper(typeof(Startup)); // To use the AutoMapper in this application for mapping values between entity class and model class with same property names
         }
 

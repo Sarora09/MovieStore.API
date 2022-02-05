@@ -15,7 +15,7 @@ namespace MovieStore.API.Models
 
         public string Email { get; set; }
 
-        public int CreditCard { get; set; }
+        public string CreditCard { get; set; }
 
         public int Age { get; set; }
     }

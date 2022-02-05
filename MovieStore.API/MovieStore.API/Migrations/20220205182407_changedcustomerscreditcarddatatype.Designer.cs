@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieStore.API.Data;
 
 namespace MovieStore.API.Migrations
 {
     [DbContext(typeof(MovieStoreContext))]
-    partial class MovieStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20220205182407_changedcustomerscreditcarddatatype")]
+    partial class changedcustomerscreditcarddatatype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
