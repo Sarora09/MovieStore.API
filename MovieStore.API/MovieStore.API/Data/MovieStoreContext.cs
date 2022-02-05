@@ -13,5 +13,7 @@ namespace MovieStore.API.Data
         }
 
         public DbSet<Movies> Movies { get; set; }
+
+        public DbSet<Customers> Customers { get; set; }
     }
 }
