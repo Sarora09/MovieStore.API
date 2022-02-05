@@ -13,6 +13,7 @@ namespace MovieStore.API.Helpers
         public ApplicationMapper()
         {
             CreateMap<Movies, MovieModel>().ReverseMap(); // To map the properties of an entity class to model class and vice versa
+            CreateMap<Customers, CustomerModel>().ReverseMap(); // To map the properties of an entity class to model class and vice versa
         }
     }
 }
