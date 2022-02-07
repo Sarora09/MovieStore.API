@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MovieStore.API.Data;
+using MovieStore.API.Models;
 using MovieStore.API.Repository;
 using System;
 using System.Collections.Generic;
@@ -30,6 +32,8 @@ namespace MovieStore.API
         {
             services.AddDbContext<MovieStoreContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("MovieStoreDB"))); // Using configuration interface to read the connection string from appsettings file
+
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<MovieStoreContext>().AddDefaultTokenProviders(); // To use the ASP.NET Core Identity
             services.AddControllers().AddNewtonsoftJson(); // Added NewtonsoftJson to use JsonPatchDocument in this application
             services.AddTransient<IMovieRepository, MovieRepository>(); // Dependency injection for Movies
             services.AddTransient<ICustomerRepositary, CustomerRepository>(); // Dependency injection for Customers
