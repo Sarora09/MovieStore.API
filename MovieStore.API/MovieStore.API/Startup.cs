@@ -37,6 +37,7 @@ namespace MovieStore.API
             services.AddControllers().AddNewtonsoftJson(); // Added NewtonsoftJson to use JsonPatchDocument in this application
             services.AddTransient<IMovieRepository, MovieRepository>(); // Dependency injection for Movies
             services.AddTransient<ICustomerRepositary, CustomerRepository>(); // Dependency injection for Customers
+            services.AddTransient<IAccessRepositary, AccessRepositary>(); // Dependency injection for Access
             services.AddAutoMapper(typeof(Startup)); // To use the AutoMapper in this application for mapping values between entity class and model class with same property names
         }
 
