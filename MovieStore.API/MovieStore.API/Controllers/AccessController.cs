@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MovieStore.API.Models;
 using MovieStore.API.Repository;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,18 @@ namespace MovieStore.API.Controllers
         public AccessController(IAccessRepositary accessRepositary)
         {
             _accessRepositary = accessRepositary;
+        }
+
+        [HttpPost("signup")]
+        public async Task<IActionResult> SignUp([FromBody] SignUpModel signUpModel)
+        {
+            var newUserResult = await _accessRepositary.SignUpAsync(signUpModel);
+
+            if(newUserResult.Succeeded)
+            {
+                return Ok(newUserResult.Succeeded);
+            }
+            return Unauthorized();
         }
     }
 }
