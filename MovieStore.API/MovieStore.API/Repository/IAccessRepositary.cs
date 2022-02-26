@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace MovieStore.API.Repository
 {
+    // Interface for AccessRepository
     public interface IAccessRepositary
     {
         Task<IdentityResult> SignUpAsync(SignUpModel signUpModel);
+
+        Task<string> SignInAsync(SignInModel signInModel);
     }
 }

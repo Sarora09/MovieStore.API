@@ -25,11 +25,29 @@ namespace MovieStore.API.Controllers
         {
             var newUserResult = await _accessRepositary.SignUpAsync(signUpModel);
 
-            if(newUserResult.Succeeded)
+            // If Succeeded is true then it will return 200 Ok status code
+            if (newUserResult.Succeeded)
             {
                 return Ok(newUserResult.Succeeded);
             }
+
+            // If Succeeded is false then it will return 401 Unauthorized status code
             return Unauthorized();
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> SignIn([FromBody] SignInModel signInModel)
+        {
+            var userToken = await _accessRepositary.SignInAsync(signInModel);
+
+            // if userToken is null or empty then return unuathorized status code 
+            if (string.IsNullOrEmpty(userToken))
+            {
+                return Unauthorized();
+            }
+
+            // If userToken contains a value then send the token using 200 Ok status code
+            return Ok(userToken);
         }
     }
 }
