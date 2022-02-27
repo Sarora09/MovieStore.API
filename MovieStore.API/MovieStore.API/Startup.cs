@@ -63,6 +63,15 @@ namespace MovieStore.API
             services.AddTransient<ICustomerRepositary, CustomerRepository>(); // Dependency injection for Customers
             services.AddTransient<IAccessRepositary, AccessRepositary>(); // Dependency injection for Access
             services.AddAutoMapper(typeof(Startup)); // To use the AutoMapper in this application for mapping values between entity class and model class with same property names
+
+            // To allow cross-origin resource sharing (CORS)
+            services.AddCors(option =>
+            {
+                option.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +85,8 @@ namespace MovieStore.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthentication(); // enable authentication using JWT
 
