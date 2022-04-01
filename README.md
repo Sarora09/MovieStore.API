@@ -1,12 +1,12 @@
 # Project Owner : Sapan Arora
 
-# Project Name: Movie Collection .Net Core Web API using the C# language
+# Project Name: Movie Collection .NET Core Web API using the C# language
 
 ## About: 
-This project is built using ASP.Net Core 5.0. I did this project to create an API that will provide the details requested by the client (react frontend) in this case, mainly in the form of JSON data. The client can perform a CRUD operation on the database based on the client's frontend inputs. CRUD stands for Create, Read, Update, and Delete operation. I have considered two actors for my website. The first actor is the Admin and the second actor is the customers. This project doesn't need the front end as the APIs can be tested using Postman. However, to see the utility of this app, I would suggest you refer to the MovieStore.WebApp on my Github repository and run both projects concurrently.
+This project is built using ASP.NET Core 5.0. I did this project to create an API that will provide the details requested by the client (react frontend) in this case, mainly in the form of JSON data. The client can perform a CRUD operation on the database based on the client's frontend inputs. CRUD stands for Create, Read, Update, and Delete operation. I have considered two actors for my website. The first actor is the Admin and the second actor is the customers. This project doesn't need the front end as the APIs can be tested using Postman. However, to see the utility of this app, I would suggest you refer to the MovieStore.WebApp on my Github repository and run both projects concurrently.
 
 ## Required Software to run the app:
-1) Visual Studio to run the .Net core Web API
+1) Visual Studio to run the .NET Core Web API
 2) Postman application to test the API
 3) Microsoft SQL Server
 
