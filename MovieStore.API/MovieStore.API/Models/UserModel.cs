@@ -6,11 +6,25 @@ using System.Threading.Tasks;
 
 namespace MovieStore.API.Models
 {
-    public class SignUpModel
+    public class UserModel
     {
+        public string Id { get; set; }
+
+        [Required]
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        public string CreditCard { get; set; }
+
+        [Required]
+        public int Age { get; set; }
 
         [Required]
         [Compare("ConfirmPassword")]
@@ -18,5 +32,7 @@ namespace MovieStore.API.Models
 
         [Required]
         public string ConfirmPassword { get; set; }
+
+        public string Error { get; set; }
     }
 }

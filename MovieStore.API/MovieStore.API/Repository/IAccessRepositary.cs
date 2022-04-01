@@ -13,5 +13,15 @@ namespace MovieStore.API.Repository
         Task<IdentityResult> SignUpAsync(SignUpModel signUpModel);
 
         Task<string> SignInAsync(SignInModel signInModel);
+
+        Task<IdentityResult> UpdateUserAsync(UserModel userModel, string id);
+
+        Task<ApplicationUser> FindUserAsync(string email);
+
+        Task<UserModel> FindUserWithIDAsync(string id);
+
+        Task<List<AllUsersModel>> GetAllUsersAsync();
+
+        Task<string> DeleteUserAsync(string id);
     }
 }

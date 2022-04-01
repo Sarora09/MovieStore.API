@@ -91,10 +91,10 @@ namespace MovieStore.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie([FromRoute] int id)
         {
-            int newMovieId = await _movieRepository.DeleteMovieAsync(id);
+            int deletedId = await _movieRepository.DeleteMovieAsync(id);
 
             // Will work if a record for the provided id in the route doesn't exist in the database
-            if (newMovieId == 0)
+            if (deletedId == 0)
             {
                 return NotFound();
             }
