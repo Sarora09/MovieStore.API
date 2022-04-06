@@ -12,6 +12,7 @@ namespace MovieStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AccessController : ControllerBase
     {
         private readonly IAccessRepositary _accessRepositary;
@@ -98,7 +99,7 @@ namespace MovieStore.API.Controllers
             return Ok(result.Id);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("")]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -106,7 +107,7 @@ namespace MovieStore.API.Controllers
             return Ok(userList);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] string id)
         {
