@@ -3,7 +3,7 @@
 # Project Name: Movie Collection .NET Core Web API using the C# language
 
 ## About: 
-This project is built using ASP.NET Core 5.0. I did this project to create an API that will provide the details requested by the client (react frontend) in this case, mainly in the form of JSON data. The client can perform a CRUD operation on the database based on the client's frontend inputs. CRUD stands for Create, Read, Update, and Delete operation. I have considered two actors for my website. The first actor is the Admin and the second actor is the customers. This project doesn't need the front end as the APIs can be tested using Postman. However, to see the utility of this app, I would suggest you refer to the MovieStore.WebApp on my Github repository and run both projects concurrently.
+This is the [website](https://movie-collection-api-app.azurewebsites.net/) for the MovieStore.API project deployed to Azure. It is built using ASP.NET Core 5.0. I did this project to create an API that will provide the details requested by the client (react frontend) in this case, mainly in the form of JSON data. The client can perform a CRUD operation on the database based on the client's frontend inputs. CRUD stands for Create, Read, Update, and Delete operation. I have considered two actors for my website. The first actor is the Admin and the second actor is the customers. This project doesn't need the front end as the APIs can be tested using Postman. However, to see the utility of this app, I would suggest you refer to the [MovieStore.WebApp project](https://github.com/Sarora09/MovieStore.WebApp) on my Github repository and run both projects concurrently.
 
 ## Required Software to run the app:
 1) Visual Studio to run the .NET Core Web API
@@ -28,4 +28,4 @@ I have used Postman and my frontend React app to use this web API. For a better 
 
 # Areas of Improvement:
 
-The app is in the development stage and is functional. However, the app requires iterations to improve. This app is for my learning purposes only.
+This app is in the development stage and is functional. However, the app requires iterations to improve. Work is in progress. This app is for my learning purposes only.
