@@ -23,6 +23,7 @@ namespace MovieStore.API.Controllers
             _logger = logger;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {

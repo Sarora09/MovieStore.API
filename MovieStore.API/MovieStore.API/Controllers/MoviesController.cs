@@ -13,7 +13,7 @@ namespace MovieStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class MoviesController : ControllerBase
     {
         private readonly IMovieRepository _movieRepository;

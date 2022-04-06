@@ -34,7 +34,7 @@ namespace MovieStore.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MovieStoreContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("MovieStoreDB"))); // Using configuration interface to read the connection string from appsettings file
+                options => options.UseSqlServer(Configuration.GetConnectionString("MovieStoreContext"))); // Using configuration interface to read the connection string from appsettings file
 
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<MovieStoreContext>().AddDefaultTokenProviders(); // To use the ASP.NET Core Identity
 
@@ -72,11 +72,19 @@ namespace MovieStore.API
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Movie API V1");
+                c.DefaultModelsExpandDepth(-1); // To hide the schemas (models) in the swagger documentation
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
