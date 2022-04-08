@@ -131,10 +131,10 @@ namespace MovieStore.API.Controllers
         /// <summary>
         /// Get user id by user email
         /// </summary>
-        
+
         [ApiExplorerSettings(IgnoreApi = true)]
         // Used when register on front end
-        [HttpGet("{email}")]
+        [HttpGet("email/{email}")]
         public async Task<IActionResult> GetUserByEmail([FromRoute] string email)
         {
             var result = await _accessRepositary.FindUserAsync(email);
