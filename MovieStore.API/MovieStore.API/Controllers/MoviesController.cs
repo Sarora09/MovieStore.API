@@ -23,6 +23,10 @@ namespace MovieStore.API.Controllers
             _movieRepository = movieRepository;
         }
 
+        /// <summary>
+        /// Get all movies
+        /// </summary>
+
         [HttpGet("")]
         public async Task<IActionResult> GetAllMovies()
         {
@@ -31,6 +35,24 @@ namespace MovieStore.API.Controllers
             return Ok(movies);
 
         }
+
+        /// <summary>
+        /// Create a movie
+        /// </summary>
+
+        [HttpPost("")]
+        public async Task<IActionResult> AddNewMovie([FromBody] MovieModel movieModel)
+        {
+            int newMovieId = await _movieRepository.AddNewMovieAsync(movieModel);
+
+            movieModel.Id = newMovieId;
+
+            return CreatedAtAction(nameof(GetMovieById), new { id = newMovieId }, movieModel);
+        }
+
+        /// <summary>
+        /// Get a movie by id
+        /// </summary>
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMovieById([FromRoute] int id)
@@ -46,15 +68,9 @@ namespace MovieStore.API.Controllers
 
         }
 
-        [HttpPost("")]
-        public async Task<IActionResult> AddNewMovie([FromBody] MovieModel movieModel)
-        {
-            int newMovieId = await _movieRepository.AddNewMovieAsync(movieModel);
-
-            movieModel.Id = newMovieId;
-
-            return CreatedAtAction(nameof(GetMovieById), new { id = newMovieId }, movieModel);
-        }
+        /// <summary>
+        /// Update a movie by id
+        /// </summary>
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMovie([FromRoute] int id, [FromBody] MovieModel movieModel)
@@ -73,6 +89,7 @@ namespace MovieStore.API.Controllers
             return Ok(movieModel);
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateMoviePatch([FromRoute] int id, [FromBody] JsonPatchDocument movieModel)
         {
@@ -87,6 +104,10 @@ namespace MovieStore.API.Controllers
             // If the provided id in the route exists in the database, return OK to the client
             return Ok();
         }
+
+        /// <summary>
+        /// Delete a movie by id
+        /// </summary>
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie([FromRoute] int id)

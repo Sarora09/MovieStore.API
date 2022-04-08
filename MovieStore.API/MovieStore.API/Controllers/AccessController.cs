@@ -12,7 +12,7 @@ namespace MovieStore.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class AccessController : ControllerBase
     {
         private readonly IAccessRepositary _accessRepositary;
@@ -22,7 +22,23 @@ namespace MovieStore.API.Controllers
             _accessRepositary = accessRepositary;
         }
 
-        [HttpPost("signup")]
+        /// <summary>
+        /// Get all users
+        /// </summary>
+        
+        //[Authorize]
+        [HttpGet("")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var userList = await _accessRepositary.GetAllUsersAsync();
+            return Ok(userList);
+        }
+
+        /// <summary>
+        /// Create a user
+        /// </summary>
+         
+        [HttpPost("")]
         public async Task<IActionResult> SignUp([FromBody] SignUpModel signUpModel)
         {
             var newUserResult = await _accessRepositary.SignUpAsync(signUpModel);
@@ -40,22 +56,28 @@ namespace MovieStore.API.Controllers
             }
         }
 
-        [HttpPost("login")]
-        public async Task<IActionResult> SignIn([FromBody] SignInModel signInModel)
+        /// <summary>
+        /// Get a user by id
+        /// </summary>
+         
+        // Used when login on front end
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUser([FromRoute] string id)
         {
-            var userToken = await _accessRepositary.SignInAsync(signInModel);
+            var result = await _accessRepositary.FindUserWithIDAsync(id);
 
-            // If userToken is null or empty then return unuathorized status code 
-            if (string.IsNullOrEmpty(userToken))
+            if (result == null)
             {
-                return Unauthorized();
+                return NotFound();
             }
 
-            // If userToken contains a value then send the token using 200 Ok status code
-            return Ok(userToken);
+            return Ok(result);
         }
 
-        
+        /// <summary>
+        /// Update a user by id
+        /// </summary>
+         
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser([FromRoute] string id, [FromBody] UserModel userModel)
         {
@@ -71,22 +93,48 @@ namespace MovieStore.API.Controllers
             }
         }
 
-        // Used when login on front end
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser([FromRoute] string id)
+        /// <summary>
+        /// Delete a user by id
+        /// </summary>
+         
+        //[Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser([FromRoute] string id)
         {
-            var result = await _accessRepositary.FindUserWithIDAsync(id);
-            
-            if (result == null)
+            var deletedId = await _accessRepositary.DeleteUserAsync(id);
+            if (deletedId == "0")
             {
                 return NotFound();
             }
-
-            return Ok(result);
+            return Ok();
         }
 
+        /// <summary>
+        /// Authenticate a user by email and password
+        /// </summary>
+         
+        [HttpPost("login")]
+        public async Task<IActionResult> SignIn([FromBody] SignInModel signInModel)
+        {
+            var userToken = await _accessRepositary.SignInAsync(signInModel);
+
+            // If userToken is null or empty then return unuathorized status code 
+            if (string.IsNullOrEmpty(userToken))
+            {
+                return Unauthorized();
+            }
+
+            // If userToken contains a value then send the token using 200 Ok status code
+            return Ok(userToken);
+        }
+
+        /// <summary>
+        /// Get user id by user email
+        /// </summary>
+        
+        [ApiExplorerSettings(IgnoreApi = true)]
         // Used when register on front end
-        [HttpGet("email/{email}")]
+        [HttpGet("{email}")]
         public async Task<IActionResult> GetUserByEmail([FromRoute] string email)
         {
             var result = await _accessRepositary.FindUserAsync(email);
@@ -97,26 +145,6 @@ namespace MovieStore.API.Controllers
             }
 
             return Ok(result.Id);
-        }
-
-        //[Authorize]
-        [HttpGet("")]
-        public async Task<IActionResult> GetAllUsers()
-        {
-            var userList = await _accessRepositary.GetAllUsersAsync();
-            return Ok(userList);
-        }
-
-        //[Authorize]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser([FromRoute] string id)
-        {
-            var deletedId = await _accessRepositary.DeleteUserAsync(id);
-            if(deletedId=="0")
-            {
-                return NotFound();
-            }
-            return Ok();
-        }
+        }  
     }
 }

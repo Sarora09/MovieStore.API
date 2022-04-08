@@ -15,7 +15,9 @@ using MovieStore.API.Models;
 using MovieStore.API.Repository;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -72,7 +74,13 @@ namespace MovieStore.API
                     builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                // using System.Reflection;
+                // below code will configure the SwaggerGen to find the xml comments added in <summary> tag above action methods and show them in the UI
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
