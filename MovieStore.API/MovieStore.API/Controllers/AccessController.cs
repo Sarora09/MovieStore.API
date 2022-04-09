@@ -52,7 +52,7 @@ namespace MovieStore.API.Controllers
             }
             else
             {
-                return Unauthorized(newUserResult.Errors);
+                return StatusCode(500, newUserResult.Errors);
             }
         }
 
@@ -145,6 +145,26 @@ namespace MovieStore.API.Controllers
             }
 
             return Ok(result.Id);
-        }  
+        }
+
+        /// <summary>
+        /// This route is created to handle the request coming from the admin dashboard in my react frontend app to create a user
+        /// </summary>
+
+        [HttpPost("createuser")]
+        public async Task<IActionResult> AdminDashboardSignUp([FromBody] AdminDashboardSignUpModel adminDashboardSignUpModel)
+        {
+            var newUserResult = await _accessRepositary.AdminDashboardSignUpAsync(adminDashboardSignUpModel);
+
+            // If the client account is created, send 
+            if (newUserResult.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(500, newUserResult.Errors);
+            }
+        }
     }
 }

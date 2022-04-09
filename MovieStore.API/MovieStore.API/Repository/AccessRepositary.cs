@@ -149,5 +149,23 @@ namespace MovieStore.API.Repository
             }
 
         }
+
+        // Creating a new user to the database through user manager and sends the IdentityResult to the AccessController through the interface
+        // IdentityResult contains the bool property "succeeded" which is true if user account is created. Otherwise, it is false 
+        public async Task<IdentityResult> AdminDashboardSignUpAsync(AdminDashboardSignUpModel adminDashboardSignUpModel)
+        {
+            var newUser = new ApplicationUser()
+            {
+                FirstName = adminDashboardSignUpModel.FirstName,
+                LastName = adminDashboardSignUpModel.LastName,
+                Email = adminDashboardSignUpModel.Email,
+                UserName = adminDashboardSignUpModel.Email,
+                CreditCard = adminDashboardSignUpModel.CreditCard,
+                Age = adminDashboardSignUpModel.Age
+            };
+            // returns the IdentityResult
+            var result = await _userManager.CreateAsync(newUser, adminDashboardSignUpModel.Password);
+            return result;
+        }
     }
 }

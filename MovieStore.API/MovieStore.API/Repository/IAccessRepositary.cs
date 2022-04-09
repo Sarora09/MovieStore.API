@@ -23,5 +23,7 @@ namespace MovieStore.API.Repository
         Task<List<AllUsersModel>> GetAllUsersAsync();
 
         Task<string> DeleteUserAsync(string id);
+
+        Task<IdentityResult> AdminDashboardSignUpAsync(AdminDashboardSignUpModel adminDashboardSignUpModel);
     }
 }
