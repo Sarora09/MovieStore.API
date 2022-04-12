@@ -1,9 +1,18 @@
 # Project Owner : Sapan Arora
 
-# Project Name: Movie Collection .NET Core Web API using the C# language
+# Project Name: Movie Collection .NET Core RESTful Web API using the C# language
 
 ## About: 
-This is the [website](https://movie-collection-api-app.azurewebsites.net/) for the MovieStore.API project deployed to Azure. It is built using ASP.NET Core 5.0. I did this project to create an API that will provide the details requested by the client (react frontend) in this case, mainly in the form of JSON data. The client can perform a CRUD operation on the database based on the client's frontend inputs. CRUD stands for Create, Read, Update, and Delete operation. I have considered two actors for my website. The first actor is the Admin and the second actor is the customers. This project doesn't need the front end as the APIs can be tested using Postman. However, to see the utility of this app, I would suggest you refer to the [MovieStore.WebApp project](https://github.com/Sarora09/MovieStore.WebApp) on my Github repository and run both projects concurrently.
+
+The project is a RESTful Web API project deployed on Azure. Please refer to the [website](https://movie-collection-api-app.azurewebsites.net/) for the Swagger documentation. It is built using ASP.NET Core 5.0. I did this project to create an API that will provide the details requested by the client (react frontend) in this case, mainly in the form of JSON data. The client can perform a CRUD operation on the database based on the client's frontend inputs. CRUD stands for Create, Read, Update, and Delete operation.
+
+The project can be tested using the Postman or [Swagger](https://movie-collection-api-app.azurewebsites.net/). However, to see the utility of this app, you may refer to the [MovieStore.WebApp project](https://github.com/Sarora09/MovieStore.WebApp) on my Github repository and run both projects concurrently.
+
+I have created two API services, i.e., Access API service and Movies API service:
+
+- Access API uses the Access controller, IAccessRepository interface (dependency injection), and AccessRepository to create, read, update, and delete a user according to the incoming request.
+
+- Movies API uses the Movies controller, IMovieRepository interface (dependency injection), and MovieRepository to create, read, update, and delete a movie according to the incoming request.
 
 ## Required Software to run the app:
 1) Visual Studio to run the .NET Core Web API
